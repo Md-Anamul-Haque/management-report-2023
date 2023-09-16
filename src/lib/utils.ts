@@ -16,7 +16,7 @@ const getMainData = (res_data: { items?: { data: string }[] }) => {
 
 export const getData = async (slug: String) => {
   try {//?${window.location.href.split("?")[1]}
-    const { data } = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/daily_statement?p_oc=30303031&p_fund_id=F-1&p_from_date=01/01/2023&p_to_date=10/01/2023&p_trans_type=PUR`);
+    const { data } = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/${slug}?${window.location.href.split("?")[1]}`);
     const maindata = getMainData(data);
     return {
       success: true,
