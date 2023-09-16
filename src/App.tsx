@@ -12,7 +12,6 @@ const App = () => {
         <Route path='/' element={<h1>hello home</h1>} />
         <Route path='/daily-statment' element={<DailyStatment />} />
         <Route path='*' element={<NotFound />} />
-
       </Routes>
     </BrowserRouter>
   )
