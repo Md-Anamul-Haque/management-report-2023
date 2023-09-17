@@ -3,10 +3,10 @@ import { v4 as uuidv4 } from 'uuid';
 import HeadersOfPage from '../../components/HeadersOfPage';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../../components/ui/table";
 import AgrigateRow from '../agrigateRow';
-type short_descType = {
-  amt?: Number | String;
-  desc?: String;
-}
+// type short_descType = {
+//   amt?: Number | String;
+//   desc?: String;
+// }
 export type Income_exp_statementDataType = {
   cols: { name?: String; colKey?: String; isHidden?: 'yes' | 'no' | String }[];
   reportsHeaders?: String[];
