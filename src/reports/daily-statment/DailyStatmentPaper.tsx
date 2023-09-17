@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import HeadersOfPage from '../../components/HeadersOfPage';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../../components/ui/table";
-import { hasValue } from '../../lib/utils';
+import AgrigateRow from '../agrigateRow';
 type short_descType = {
   amt?: Number | String;
   desc?: String;
@@ -34,15 +34,15 @@ const DailyStatmentPaper = ({ data }: { data: DailyStatmentDataType }) => {
   //   }
   // });
   const validCols = cols.filter(col => !(col?.isHidden === 'yes'));
-  const [colKeys, setcolKeys] = useState<String[]>([])
-  const [sum, setSum] = useState<{
-    total?: Number;
-    due_amt?: Number;
-  }>({})
+  const [colKeys, setcolKeys] = useState<string[]>([])
+  // const [sum, setSum] = useState<{
+  //   total?: Number;
+  //   due_amt?: Number;
+  // }>({})
   // let colKeys: String[] = [];
 
   useEffect(() => {
-    let newColkeys: String[] = [];
+    let newColkeys: string[] = [];
     validCols.map(col => {
       if (col?.colKey) {
         newColkeys.push(String(col.colKey));
@@ -50,27 +50,27 @@ const DailyStatmentPaper = ({ data }: { data: DailyStatmentDataType }) => {
     });
     setcolKeys([...newColkeys])
     // ----------------------
-    let newSum: typeof sum = {}
-    if (newColkeys.indexOf('total') !== -1) {
-      const sumTotal = rows.reduce((accumulator, currentValue) => {
-        const total = currentValue?.total ? typeof currentValue.total === "number" ? currentValue.total : Number(currentValue.total) : 0;
-        return accumulator + total;
-      }, 0)
-      newSum.total = sumTotal
-    }
-    // ----------------------
-    if (newColkeys.indexOf('due_amt') !== -1) {
-      const sumDue_amt = rows.reduce((accumulator, currentValue) => {
-        const due_amt = currentValue?.due_amt ? typeof currentValue.due_amt === "number" ? currentValue.due_amt : Number(currentValue.due_amt) : 0;
-        return accumulator + due_amt;
-      }, 0)
-      newSum.due_amt = sumDue_amt
-    }
-    setSum({ ...newSum })
+    //   let newSum: typeof sum = {}
+    //   if (newColkeys.indexOf('total') !== -1) {
+    //     const sumTotal = rows.reduce((accumulator, currentValue) => {
+    //       const total = currentValue?.total ? typeof currentValue.total === "number" ? currentValue.total : Number(currentValue.total) : 0;
+    //       return accumulator + total;
+    //     }, 0)
+    //     newSum.total = sumTotal
+    //   }
+    //   // ----------------------
+    //   if (newColkeys.indexOf('due_amt') !== -1) {
+    //     const sumDue_amt = rows.reduce((accumulator, currentValue) => {
+    //       const due_amt = currentValue?.due_amt ? typeof currentValue.due_amt === "number" ? currentValue.due_amt : Number(currentValue.due_amt) : 0;
+    //       return accumulator + due_amt;
+    //     }, 0)
+    //     newSum.due_amt = sumDue_amt
+    //   }
+    //   setSum({ ...newSum })
   }, [data])
   return (
     <div className="content">
-      <Table className='border'>
+      {colKeys && <Table className='border'>
         {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
         <TableHeader>
           <TableRow>
@@ -120,15 +120,18 @@ const DailyStatmentPaper = ({ data }: { data: DailyStatmentDataType }) => {
               })}
             </TableRow>
           })}
-          <TableRow>
-            <TableCell colSpan={hasValue(colKeys, 'due_amt') ? colKeys.indexOf('due_amt') : colKeys.indexOf('total')} className='text-right'>{'total(sum)'} :</TableCell>
+          {/* <TableRow>
+            <TableCell colSpan={colKeys.indexOf('due_amt') < colKeys.indexOf('total') ? colKeys.indexOf('due_amt') : colKeys.indexOf('total')} className='text-right'>{'total(sum)'} :</TableCell>
             {
-              hasValue(colKeys, 'due_amt') && <TableCell className='border text-right'>{String(sum?.due_amt || '')}</TableCell>
+              colKeys.indexOf('due_amt') < colKeys.indexOf('total') && hasValue(colKeys, 'due_amt') && <TableCell className='border text-right'>{String(sum?.due_amt || '')}</TableCell>
             }
             <TableCell colSpan={colKeys.indexOf('total') - colKeys.indexOf('due_amt')} className='text-right'>{String(sum.total)}</TableCell>
           </TableRow>
+           */}
+
+          <AgrigateRow rows={rows} colkeys={colKeys} $sumkeys={['total', 'due_amt']} />
         </TableBody>
-      </Table>
+      </Table>}
     </div>
   )
 }
