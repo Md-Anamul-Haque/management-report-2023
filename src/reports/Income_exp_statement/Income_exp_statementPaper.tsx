@@ -3,23 +3,34 @@ import { v4 as uuidv4 } from 'uuid';
 import HeadersOfPage from '../../components/HeadersOfPage';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../../components/ui/table";
 import AgrigateRow from '../agrigateRow';
-// type short_descType = {
-//   amt?: Number | String;
-//   desc?: String;
-// }
+type rowType = {
+  tariff_desc: string;
+  exp_amt?: number | string;
+  rec_amt?: number | string;
+}
 export type Income_exp_statementDataType = {
   cols: { name?: String; colKey?: String; isHidden?: 'yes' | 'no' | String }[];
   reportsHeaders?: String[];
-  rows: {
-    tariff_desc: string;
-    exp_amt?: number | string;
-    rec_amt?: number | string;
-  }[]
+  rows: rowType[]
 };
 // type colKeyType='trans_no'|'trans_date'|'total'|'ref_name'|'ref_id'|'particular'|'paper_no'|'paid_amt'|'due_amt'|'short_desc';
 const Income_exp_statementPaper = ({ data }: { data: Income_exp_statementDataType }) => {
-  let { cols, rows, reportsHeaders } = data;
+  let { cols, rows: l_rows, reportsHeaders } = data;
+  // -----------
+  let rows: rowType[];
+  let rowsOfExp_amt: rowType[] = [];
+  let rowsOfRec_amt: rowType[] = [];
 
+  // start for sroting
+  l_rows.map(row => {
+    if (row?.rec_amt) {
+      rowsOfRec_amt.push(row)
+    } else {
+      rowsOfExp_amt.push(row)
+    }
+  })
+  rows = [...rowsOfRec_amt, ...rowsOfExp_amt]
+  // end for sorting
   const validCols = cols.filter(col => !(col?.isHidden === 'yes'));
   const [colKeys, setcolKeys] = useState<string[]>([])
   useEffect(() => {
@@ -55,7 +66,7 @@ const Income_exp_statementPaper = ({ data }: { data: Income_exp_statementDataTyp
           </TableRow>
         </TableHeader>
         <TableBody >
-          {rows?.map(row => {
+          {rows && rows?.map(row => {
             return <TableRow className='items-start border align-top' key={uuidv4()}>
               {colKeys.map((ck) => {
                 return <TableCell key={uuidv4()}
