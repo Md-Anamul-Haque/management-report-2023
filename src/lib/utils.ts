@@ -11,6 +11,9 @@ const getMainData = (res_data: { items?: { data: string }[] }) => {
 
   const { items = [] } = res_data
   const { data = '' } = items?.[0];
+  if (!data) {
+    throw new Error('Failed to fetch {data} from responce')
+  }
   return JSON.parse(data)
 }
 

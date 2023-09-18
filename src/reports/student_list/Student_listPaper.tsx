@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import HeadersOfPage from '../../components/HeadersOfPage';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../../components/ui/table";
-import AgrigateRow from '../agrigateRow';
 type group_dataType = {
   academic_year?: string;
   admissin_id?: string;
@@ -106,14 +105,8 @@ const Student_listPaper = ({ data }: { data: Student_listDataType }) => {
               </>
             )
           })}
-          <AgrigateRow rows={rows} colkeys={colKeys} $sumkeys={['exp_amt', 'rec_amt']} />
-          {/* <TableRow>
-            <TableCell colSpan={colKeys.indexOf('exp_amt') < colKeys.indexOf('rec_amt') ? colKeys.indexOf('exp_amt') : colKeys.indexOf('rec_amt')} className='text-right'>{'total(sum)'} :</TableCell>
-            {
-              colKeys.indexOf('exp_amt') < colKeys.indexOf('rec_amt') && hasValue(colKeys, 'exp_amt') && <TableCell className='border text-right'>{String(sum?.exp_amt || '')}</TableCell>
-            }
-            <TableCell colSpan={colKeys.indexOf('total') - colKeys.indexOf('due_amt')} className='text-right'>{String(sum.total)}</TableCell>
-          </TableRow> */}
+          {/* <AgrigateRow rows={rows} colkeys={colKeys} $sumkeys={['exp_amt', 'rec_amt']} /> */}
+
         </TableBody>
       </Table>}
     </div>

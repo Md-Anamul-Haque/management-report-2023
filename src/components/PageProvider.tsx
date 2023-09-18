@@ -23,7 +23,6 @@ const PageProvider = ({ children, w, h, pageName }: { children: React.ReactNode,
     <Navbar pageName={pageName} />
     <div className={styles.page} style={{
       width: w,
-      height: h
     }}>
       {children}
     </div>
