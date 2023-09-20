@@ -39,12 +39,12 @@ const AgrigateRow = ({ rows, colkeys, $sumkeys }: { rows: object[]; colkeys: str
     return (
         <>
             {sums && <TableRow>
-                <TableCell colSpan={sums ? sums?.[0]?.colIndex : 1}>Total(sum)</TableCell>
+                <TableCell className="text-right border" colSpan={sums ? sums?.[0]?.colIndex : 1}>Total:</TableCell>
                 {sums.map((sum, i) => {
                     if (i === 0) {
-                        return <TableCell key={i}>{String(sum?.value)}</TableCell>
+                        return <TableCell className="text-right border" key={i}>{String(sum?.value)}</TableCell>
                     } else {
-                        return <TableCell key={i} colSpan={sums?.[i]?.colIndex - sums?.[Number(i - 1)].colIndex}>{String(sum.value)}</TableCell>
+                        return <TableCell className="text-right border" key={i} colSpan={sums?.[i]?.colIndex - sums?.[Number(i - 1)].colIndex}>{String(sum.value)}</TableCell>
                     }
                 })}
             </TableRow >}

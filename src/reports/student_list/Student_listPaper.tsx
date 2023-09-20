@@ -11,7 +11,7 @@ type group_dataType = {
   student_id?: string;
 }
 type rowType = {
-  section_section: string;
+  class_name: string;
   group_data?: group_dataType[];
 }
 export type Student_listDataType = {
@@ -35,7 +35,7 @@ const Student_listPaper = ({ data }: { data: Student_listDataType }) => {
     });
     setcolKeys([...newColkeys])
     // ----------------------
-
+    console.log({ row1: rows[0] })
   }, [data])
   return (
     <div className="content">
@@ -47,62 +47,55 @@ const Student_listPaper = ({ data }: { data: Student_listDataType }) => {
               <HeadersOfPage reportsHeaders={reportsHeaders} />
             </TableHead>}
           </TableRow>
-          {/* <TableRow>
-            {validCols.map(col => (
-              <TableHead
-                style={{
-                  // @ts-ignore
-                  textAlign: typeof rows?.[0]?.[col.colKey] == 'number' ? 'right' : typeof rows?.[0]?.[col.colKey] == 'string' ? 'left' : 'center',
-                }}
-                key={uuidv4()}>{col.name}</TableHead>
-            ))}
-          </TableRow> */}
         </TableHeader>
         <TableBody >
           {rows?.map((row: rowType) => {
             return (
-              <>
-                <TableRow>
-                  <TableCell colSpan={validCols.length} >
-                    <Table className='border print:break-before-page print:break-after-auto'>
-                      <TableHeader>
-                        <TableRow className='items-start border align-top' key={uuidv4()}>
-                          <TableHead colSpan={colKeys.length} className='text-center'>{row.section_section}</TableHead>
-                        </TableRow>
-                        <TableRow>
-                          <TableHead>ত্র:নং</TableHead>
-                          {validCols.map(col => (
+              <TableRow key={uuidv4()}>
+                <TableCell colSpan={validCols.length} className='pb-48'>
+                  <Table className='border print:break-before-page print:break-after-auto'>
+                    <TableHeader>
+                      <TableRow className='items-start border align-top' key={uuidv4()}>
+                        <TableHead colSpan={colKeys.length} className='text-center text-xl font-medium tracking-tight  '>{row.class_name}</TableHead>
+                      </TableRow>
+                      <TableRow>
+                        <TableHead>ত্র:নং</TableHead>
+                        {validCols.map(col => {
+                          // @ts-ignore
+                          const d_type = typeof rows?.[0]?.group_data?.[0]?.[col?.colKey];
+                          const align = d_type == 'number' ? 'right' : d_type == 'string' ? 'left' : 'center';
+                          return (
                             <TableHead
                               style={{
                                 // @ts-ignore
-                                textAlign: typeof rows?.[0]?.[col.colKey] == 'number' ? 'right' : typeof rows?.[0]?.[col.colKey] == 'string' ? 'left' : 'center',
+                                textAlign: align,
                               }}
-                              key={uuidv4()}>{col.name}</TableHead>
-                          ))}
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-
-                        {row.group_data && row.group_data.map((data, i) => {
-                          return (<TableRow>
-                            <TableCell>{String(i + 1)}</TableCell>
-                            {colKeys.map(ck => (
-
-                              <TableCell
-                                style={{
-                                  // @ts-ignore
-                                  textAlign: typeof data?.[ck] == 'number' ? 'right' : 'left'
-                                }}
-                              // @ts-ignore
-                              >{data?.[ck]}</TableCell>
-                            ))}
-                          </TableRow>)
+                              key={uuidv4()}>{col?.name}</TableHead>
+                          )
                         })}
-                      </TableBody>
-                    </Table>
-                  </TableCell>
-                </TableRow>
-              </>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+
+                      {row.group_data && row.group_data.map((data, i) => {
+                        return (<TableRow key={uuidv4()}>
+                          <TableCell>{String(i + 1)}</TableCell>
+                          {colKeys.map(ck => (
+
+                            <TableCell key={uuidv4()}
+                              style={{
+                                // @ts-ignore
+                                textAlign: typeof data?.[ck] == 'number' ? 'right' : 'left'
+                              }}
+                            // @ts-ignore
+                            >{data?.[ck]}</TableCell>
+                          ))}
+                        </TableRow>)
+                      })}
+                    </TableBody>
+                  </Table>
+                </TableCell>
+              </TableRow>
             )
           })}
           {/* <AgrigateRow rows={rows} colkeys={colKeys} $sumkeys={['exp_amt', 'rec_amt']} /> */}
