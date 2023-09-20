@@ -32,7 +32,7 @@ const Student_list = () => {
 
     if (data) {
         return (
-            <PageProvider pageName={'daily_statement'} w="8.4in" h="11.60in">
+            <PageProvider pageName={`report-student_list-${Date.now()}`} w="8.4in" h="11.60in">
                 <Student_listPaper data={data} />
             </PageProvider>
         )

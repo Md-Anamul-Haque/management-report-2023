@@ -6,7 +6,7 @@ const PrintIcon = () => (
     </svg>
 
 )
-const Navbar = ({ pageName, ...porps }: { pageName: string }) => {
+const Navbar = ({ ...porps }) => {
     return (
         <nav {...porps} className="print:hidden sticky rounded-b-sm top-0 left-0 mb-5 z-10 mx-auto block w-full border bg-card border-b-8 bg-opacity-80 p-2 text-white shadow-md backdrop-blur-2xl backdrop-saturate-200 lg:px-8">
             <div>
@@ -14,7 +14,7 @@ const Navbar = ({ pageName, ...porps }: { pageName: string }) => {
                     <h6
                         className="mr-4 block cursor-pointer py-1.5 font-sans text-sm font-normal leading-normal text-inherit antialiased"
                     >
-                        <span id='TITLE'>{pageName || ''}</span>
+                        <span id='TITLE'>{'Report'}</span>
                     </h6>
                     <Button
                         variant={'outline'}

@@ -31,7 +31,7 @@ const DailyStatment = () => {
 
     if (data) {
         return (
-            <PageProvider pageName={'daily_statement'} w="8.4in" h="11.69in">
+            <PageProvider pageName={`report-daily_statement-${Date.now()}`} w="8.4in" h="11.69in">
                 <DailyStatmentPaper data={data} />
             </PageProvider>
         )

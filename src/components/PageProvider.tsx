@@ -20,7 +20,7 @@ const PageProvider = ({ children, w, h, pageName }: { children: React.ReactNode,
           }
     `)}</style>
     </Helmet>
-    <Navbar pageName={pageName} />
+    <Navbar />
     <div className={styles.page} style={{
       width: w,
     }}>

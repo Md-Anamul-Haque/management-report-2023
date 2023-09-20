@@ -47,7 +47,7 @@ const Income_exp_statement = () => {
 
     if (data) {
         return (
-            <PageProvider pageName={'daily_statement'} w="8.4in" h="11.69in">
+            <PageProvider pageName={`report-income_exp_statement-${Date.now()}`} w="8.4in" h="11.69in">
                 <Income_exp_statementPaper data={data} />
             </PageProvider>
         )
