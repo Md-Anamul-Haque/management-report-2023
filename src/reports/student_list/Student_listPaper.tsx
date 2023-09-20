@@ -52,11 +52,11 @@ const Student_listPaper = ({ data }: { data: Student_listDataType }) => {
           {rows?.map((row: rowType) => {
             return (
               <TableRow key={uuidv4()}>
-                <TableCell colSpan={validCols.length} className='pb-48'>
+                <TableCell colSpan={validCols.length} className='pb-48 print:pb-2'>
                   <Table className='border print:break-before-page print:break-after-auto'>
                     <TableHeader>
                       <TableRow className='items-start border align-top' key={uuidv4()}>
-                        <TableHead colSpan={colKeys.length} className='text-center text-xl font-medium tracking-tight  '>{row.class_name}</TableHead>
+                        <TableHead colSpan={colKeys.length} className='text-center text-xl text-black tracking-tight  '>{row.class_name}</TableHead>
                       </TableRow>
                       <TableRow>
                         <TableHead>ত্র:নং</TableHead>

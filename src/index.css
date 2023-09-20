@@ -69,6 +69,7 @@
 @layer base {
   * {
     @apply border-border;
+    font-family: 'Kalpurush', Arial, sans-serif !important;
   }
 
   body {
