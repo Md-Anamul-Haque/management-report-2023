@@ -15,7 +15,7 @@ type rowType = {
   group_data?: group_dataType[];
 }
 export type Student_listDataType = {
-  cols: { name?: String; colKey?: String; isHidden?: 'yes' | 'no' | String }[];
+  cols: { name?: String; colKey?: String; isHidden?: 'yes' | 'no' | string }[];
   reportsHeaders?: String[];
   rows: rowType[]
 };
