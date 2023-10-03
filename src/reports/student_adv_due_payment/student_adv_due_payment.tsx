@@ -58,27 +58,27 @@ const Student_adv_due_payment = ({ data }: { data: student_adv_due_paymentsDataT
             newValidCols.push(validCol)
         }
     })
-    validCols = newValidCols;
     // ---------------------
-    rows = rows.map(row => {
+    const newRows = rows.map(row => {
         let newRow: object | any = { ...row }
         monthNames.forEach(monthName => {
             newRow[monthName.month_id] = monthName?.amt
         })
+        delete newRow.group_data
         return newRow
     })
 
-    // console.log(newRows)
+    console.log({ newRows, newValidCols })
 
     useEffect(() => {
         let newColkeys: string[] = [];
-        validCols.map(col => {
+        newValidCols.map(col => {
             if (col?.colKey) {
-                if (col.colKey === 'month_id') {
-                    monthNames.map(monthName => newColkeys.push(monthName.month_id))
-                } else {
-                    newColkeys.push(String(col.colKey));
-                }
+                // if (col.colKey === 'month_id') {
+                //     monthNames.map(monthName => newColkeys.push(monthName.month_id))
+                // } else {
+                newColkeys.push(String(col.colKey));
+                // }
             }
         });
         setcolKeys([...newColkeys])
@@ -94,13 +94,13 @@ const Student_adv_due_payment = ({ data }: { data: student_adv_due_paymentsDataT
                         </TableHead>}
                     </TableRow>
                     <TableRow>
-                        {validCols.map(col => {
+                        {newValidCols.map(col => {
                             if (col.colKey === 'month_id') {
                                 return monthNames.map(monthName => (
                                     <TableHead className='border'
                                         style={{
                                             // @ts-ignore
-                                            textAlign: typeof rows?.[0]?.[col?.colKey] == 'number' ? 'right' : typeof rows?.[0]?.[col?.colKey] == 'string' ? 'left' : 'center',
+                                            textAlign: typeof newRows?.[0]?.[col?.colKey] == 'number' ? 'right' : typeof newRows?.[0]?.[col?.colKey] == 'string' ? 'left' : 'center',
                                         }} key={uuidv4()}>{monthName.month_id}</TableHead>
                                 ))
                             } else {
@@ -109,26 +109,26 @@ const Student_adv_due_payment = ({ data }: { data: student_adv_due_paymentsDataT
                             return <TableHead className='p-4 border'
                                 style={{
                                     // @ts-ignore
-                                    textAlign: typeof rows?.[0]?.[col?.colKey] == 'number' ? 'right' : typeof rows?.[0]?.[col?.colKey] == 'string' ? 'left' : 'center',
+                                    textAlign: typeof newRows?.[0]?.[col?.colKey] == 'number' ? 'right' : typeof newRows?.[0]?.[col?.colKey] == 'string' ? 'left' : 'center',
                                 }}
                                 key={uuidv4()}>{col.name}</TableHead>
                         })}
                     </TableRow>
                 </TableHeader>
                 <TableBody className='border' >
-                    {rows && rows.map(row => {
+                    {newRows && newRows.map(row => {
                         return <TableRow key={uuidv4()}>
-                            {row && validCols.map(col => (
+                            {row && newValidCols.map(col => (
                                 <TableCell className='border' style={{
                                     // @ts-ignore
-                                    textAlign: typeof rows?.[0]?.[col?.colKey] == 'number' ? 'right' : typeof rows?.[0]?.[col?.colKey] == 'string' ? 'left' : 'center',
+                                    textAlign: typeof newRows?.[0]?.[col?.colKey] == 'number' ? 'right' : typeof newRows?.[0]?.[col?.colKey] == 'string' ? 'left' : 'center',
                                 }} key={uuidv4()}>
                                     {/* @ts-ignore */}
                                     {row?.[col?.colKey]}</TableCell>
                             ))}
                         </TableRow>
                     })}
-                    <AgrigateRow rows={rows} colkeys={colKeys} $sumkeys={['sub_total', ...monthNames.map(mn => mn.month_id), 'amt']} />
+                    <AgrigateRow rows={newRows} colkeys={colKeys} $sumkeys={['sub_total', ...monthNames.map(mn => mn.month_id), 'amt']} />
 
                 </TableBody>
             </Table>}
