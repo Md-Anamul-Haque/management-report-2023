@@ -25,6 +25,11 @@ export type student_adv_due_paymentsDataType = {
     reportsHeaders?: String[];
     rows: rowType[]
 };
+function getAmtByMonthId(data: groupDataItem[], monthId: string): number | string | undefined {
+    const item = data.find(item => item.month_id === monthId);
+    return item ? item.amt : undefined;
+}
+
 const months = { JAN: '1', FEB: '2', MAR: '3', APR: '4', MAY: '5', JUN: '6', JUL: '7', AUG: '8', SEP: '9', OCT: '10', NOV: '11', DEC: '12' };
 
 const Student_adv_due_payment = ({ data }: { data: student_adv_due_paymentsDataType }) => {
@@ -62,7 +67,7 @@ const Student_adv_due_payment = ({ data }: { data: student_adv_due_paymentsDataT
     const newRows = rows.map(row => {
         let newRow: object | any = { ...row }
         monthNames.forEach(monthName => {
-            newRow[monthName.month_id] = monthName?.amt
+            newRow[monthName.month_id] = getAmtByMonthId(row?.group_data||[], monthName.month_id)
         })
         delete newRow.group_data
         return newRow
