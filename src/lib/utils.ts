@@ -17,7 +17,7 @@ const getMainData = (res_data: { items?: { data: string }[] }) => {
   return JSON.parse(data)
 }
 
-export const getData = async (slug: String) => {
+export const getData = async (slug: string) => {
   try {//?${window.location.href.split("?")[1]}
     const { data } = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/${slug}?${window.location.href.split("?")[1]}`);
     const maindata = getMainData(data);

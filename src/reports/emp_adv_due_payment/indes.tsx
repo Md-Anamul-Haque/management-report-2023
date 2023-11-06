@@ -3,7 +3,7 @@ import ErrorElement from "../../components/ErrorElement";
 import LoadingAnimation from "../../components/LoadingAnimation";
 import PageProvider from "../../components/PageProvider";
 import { getData } from "../../lib/utils";
-import Student_adv_due_payment, { student_adv_due_paymentsDataType } from "./student_adv_due_payment";
+import Student_adv_due_payment, { student_adv_due_paymentsDataType } from "./emp_adv_due_payment";
 // https://gbb721bc4e0ffd9-db7ijy7.adb.ap-mumbai-1.oraclecloudapps.com/ords/app/rpt_api/student_adv_due_payment?p_oc=30303031&p_from_date=01/01/2023&p_to_date=31/01/2023&p_section_id=NSR-1
 // const months = { JAN: '1', FEB: '2', MAR: '3', APR: '4', MAY: '5', JUN: '6', JUL: '7', AUG: '8', SEP: '9', OCT: '10', NOV: '11', DEC: '12' };
 // const setDataWithSort = async (rows: rowType[]) => {
@@ -28,12 +28,12 @@ import Student_adv_due_payment, { student_adv_due_paymentsDataType } from "./stu
 //     // return tmp_rows
 // }
 
-const Student_adv_due_payments = () => {
+const Emp_adv_due_payments = () => {
     const [data, setData] = useState<student_adv_due_paymentsDataType | null>(null)
     const [isError, setIsError] = useState<string | null>()
     const [IsLoading, setIsLoading] = useState<boolean>(true)
     const handleData = async () => {
-        const fetchData = await getData('student_adv_due_payment')
+        const fetchData = await getData('emp_adv_due_payment')
         console.log({ fetchData })
         if (fetchData.success) {
             setData(fetchData.JSON)
@@ -62,5 +62,5 @@ const Student_adv_due_payments = () => {
     }
 }
 
-export default Student_adv_due_payments
+export default Emp_adv_due_payments
 
