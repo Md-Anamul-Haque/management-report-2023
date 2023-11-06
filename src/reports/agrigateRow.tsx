@@ -39,7 +39,7 @@ const AgrigateRow = ({ rows, colkeys, $sumkeys }: { rows: object[]; colkeys: str
     return (
         <>
             {sums && <TableRow>
-                <TableCell className="text-right border" colSpan={sums ? sums?.[0]?.colIndex : 1}>run total:</TableCell>
+                <TableCell className="text-right border" colSpan={sums ? sums?.[0]?.colIndex : 1}>Grand Total:</TableCell>
                 {sums.map((sum, i) => {
                     if (i === 0) {
                         return <TableCell className="text-right border" key={i}>{String(sum?.value)}</TableCell>
